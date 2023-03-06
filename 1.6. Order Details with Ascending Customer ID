@@ -1,0 +1,57 @@
+/*
+Find order details made by Jill and Eva.
+Consider the Jill and Eva as first names of customers.
+Output the order date, details and cost along with the first name.
+Order records based on the customer id in ascending order.
+*/
+
+-- ALL QUERY
+select * from customers;
+
+SELECT *
+FROM orders;
+-- INNER JOIN STILL ALL QUERY
+SELECT *
+FROM customers c
+INNER JOIN
+orders o
+ON c.id = o.cust_id;
+
+-- WHERE + INNER JOIN
+SELECT *
+FROM customers c
+INNER JOIN
+orders o
+ON c.id = o.cust_id
+WHERE first_name = 'Jill'
+OR first_name = 'Eva';
+
+-- WHERE + JOIN + COLUMN NEEDED (set this as INNER QUERY)
+SELECT first_name
+FROM customers c
+INNER JOIN
+orders o
+ON c.id = o.cust_id
+WHERE first_name = 'Jill'
+OR first_name = 'Eva';
+
+-- OUTER QUERY + INNER QUERY = RESULT
+SELECT 
+    first_name, 
+    order_date, 
+    order_details, 
+    total_order_cost
+FROM customers c
+INNER JOIN
+orders o
+ON c.id = o.cust_id
+
+WHERE first_name IN
+(SELECT first_name
+FROM customers c
+INNER JOIN
+orders o
+ON c.id = o.cust_id
+WHERE first_name = 'Jill'
+OR first_name = 'Eva')
+ORDER by cust_id ASC;
