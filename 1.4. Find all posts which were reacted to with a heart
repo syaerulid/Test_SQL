@@ -1,0 +1,25 @@
+-- Find all posts which were reacted to with a heart. For such posts output all columns from facebook_posts table.
+
+select * from facebook_reactions;
+SELECT *
+FROM facebook_posts;
+
+-- INNER JOIN
+SELECT *
+FROM facebook_reactions fr
+INNER JOIN facebook_posts fp
+ON fr.post_id = fp.post_id;
+
+-- SELECT all reacted with Heart
+SELECT *
+FROM facebook_reactions fr
+INNER JOIN facebook_posts fp
+ON fr.post_id = fp.post_id
+WHERE reaction = 'heart';
+
+-- RESULT
+SELECT DISTINCT(fr.post_id), fr.poster , fp.post_text, fp.post_keywords,fp.post_date
+FROM facebook_reactions fr
+INNER JOIN facebook_posts fp
+ON fr.post_id = fp.post_id
+WHERE reaction = 'heart';
