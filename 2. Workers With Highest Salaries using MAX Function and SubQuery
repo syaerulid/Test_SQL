@@ -1,0 +1,41 @@
+/ * You have been asked to find the job titles of the highest-paid employees.
+Your output should include the highest-paid title or multiple titles with the same salary.
+* /
+
+select * from worker;
+select * from title;
+
+-- JOINING THE TABLE
+SELECT *
+FROM worker w
+RIGHT JOIN
+title t
+ON 
+w.worker_id = t.worker_ref_id;
+-- Inner Query
+SELECT 
+    MAX(salary)
+FROM worker w
+RIGHT JOIN
+title t
+ON 
+w.worker_id = t.worker_ref_id;
+-- Outer + Inner = Result
+SELECT
+    worker_title as best_paid_title
+FROM worker w
+RIGHT JOIN
+title t
+ON 
+w.worker_id = t.worker_ref_id
+WHERE salary = 
+(SELECT 
+    MAX(salary)
+FROM worker w
+RIGHT JOIN
+title t
+ON 
+w.worker_id = t.worker_ref_id);
+
+
+    
