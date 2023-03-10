@@ -1,0 +1,34 @@
+/*
+Find the employee with the highest salary per department.
+Output the department name, employee's first name along with the corresponding salary.
+*/
+
+select * from employee;
+
+-- MAX SALARY for Each Department
+SELECT 
+    department,
+    max(salary)
+FROM employee
+GROUP BY department;
+
+-- Inner Query
+SELECT 
+    max(salary)
+FROM employee
+GROUP by department;
+-- Outer Query + Inner = Result 
+SELECT
+    department,
+    first_name,
+    max(salary)
+FROM employee
+WHERE salary IN
+(SELECT 
+    max(salary)
+FROM employee
+GROUP by department)
+GROUP by department, first_name
+ORDER by max(salary) DESC;
+
+
