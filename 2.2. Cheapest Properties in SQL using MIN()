@@ -1,0 +1,15 @@
+# Cheapest Properties
+Find the price of the cheapest property for every city.
+
+select * from airbnb_search_details;
+
+-- CHEAPEST PROPERTIES
+SELECT MIN(price)
+FROM airbnb_search_details;
+
+-- CHEAPEST PROPERTIES For Every City
+SELECT 
+    city,
+    MIN(price)
+FROM airbnb_search_details
+GROUP BY city;
