@@ -1,0 +1,24 @@
+/*
+Find the review_text that received the highest number of  'cool' votes.
+Output the business name along with the review text with the highest numbef of 'cool' votes.
+*/
+
+
+select * from yelp_reviews;
+
+-- SELECT + WHERE CLAUSE 'COOL'
+SELECT business_name, cool
+FROM yelp_reviews;
+
+-- SELECT HIGHEST COOL VOTES
+SELECT MAX(cool)
+FROM yelp_reviews;
+
+-- OUTER QUERY
+SELECT 
+    business_name,
+    review_text
+FROM yelp_reviews
+WHERE cool =
+(SELECT MAX(cool)
+FROM yelp_reviews);
