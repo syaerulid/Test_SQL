@@ -1,0 +1,21 @@
+Sales Dept Salaries
+
+/*
+Find employees in the Sales department who achieved a target greater than 150.
+Output first names of employees.
+Sort records by the first name in descending order.
+*/
+
+select * from employee;
+
+-- Target Greater than 150
+SELECT first_name, department
+FROM employee
+WHERE target > 150;
+
+-- Target Greater than 150 and Department sales
+SELECT first_name, department
+FROM employee
+WHERE department = 'Sales'
+AND target > 150
+ORDER by first_name DESC;
