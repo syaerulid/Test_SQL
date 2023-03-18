@@ -1,0 +1,11 @@
+/* Find employees that are not referred by the manager id 1.
+Output the first name of the employee.
+
+*/
+
+select * from employee;
+
+SELECT first_name, manager_id
+FROM employee
+WHERE manager_id != 1;
+
