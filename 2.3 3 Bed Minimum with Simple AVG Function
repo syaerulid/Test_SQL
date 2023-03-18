@@ -1,0 +1,33 @@
+/*
+Find the average number of beds in each neighborhood that has at least 3 beds in total.
+
+
+Output results along with the neighborhood name and sort the results based on the number of average beds in descending order.
+*/
+
+select * from airbnb_search_details;
+
+-- MIN 3
+SELECT *
+FROM airbnb_search_details
+WHERE beds >= 3;
+
+-- AVERAGE NUMBER BEDS
+SELECT AVG(beds)
+FROM airbnb_search_details
+WHERE beds >= 3;
+
+-- GROUP BY NEIGHBOORHOOD
+SELECT AVG(beds)
+FROM airbnb_search_details
+WHERE beds >= 3
+GROUP BY neighbourhood;
+
+-- GROUP BY + SORT
+SELECT 
+    neighbourhood,
+    AVG(beds)
+FROM airbnb_search_details
+WHERE beds >= 3
+GROUP BY neighbourhood
+ORDER by AVG(beds) DESC;
