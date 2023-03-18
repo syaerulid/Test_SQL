@@ -1,0 +1,13 @@
+/* For each video game player, find the latest date when they logged in.
+*/
+
+select * from players_logins;
+-- DISTINCT
+SELECT DISTINCT(player_id)
+FROM players_logins;
+
+-- RESULT
+SELECT DISTINCT(player_id), MAX(login_date)
+FROM players_logins
+GROUP BY player_id
+ORDER BY MAX(login_date);
