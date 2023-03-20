@@ -1,0 +1,43 @@
+/*
+Given a list of projects and employees mapped to each project, calculate by the amount of project budget allocated to each employee . 
+The output should include the project title and the project budget rounded to the closest integer. 
+Order your list by projects with the highest budget per employee first. */
+
+select * from ms_projects;
+select * from ms_emp_projects;
+
+-- 1. INNER JOIN
+SELECT *
+FROM ms_projects mp
+INNER JOIN ms_emp_projects mep
+ON
+mp.id = mep.project_id;
+
+-- 2. HIGHEST BUDGET
+SELECT
+    MAX(budget)
+FROM ms_projects mp
+INNER JOIN ms_emp_projects mep
+ON
+mp.id = mep.project_id
+GROUP BY title;
+
+-- 3. MAX BUDGET / EMPLOYEE (OUTER + INNER)
+SELECT 
+    title,
+    emp_id,
+    ROUND(MAX(budget)) as MAX_BUDGET
+FROM ms_projects mp
+INNER JOIN ms_emp_projects mep
+ON
+mp.id = mep.project_id
+WHERE budget IN
+(SELECT
+    MAX(budget)
+FROM ms_projects mp
+INNER JOIN ms_emp_projects mep
+ON
+mp.id = mep.project_id
+GROUP BY title)
+GROUP BY title,emp_id,budget
+ORDER BY MAX_BUDGET DESC;
