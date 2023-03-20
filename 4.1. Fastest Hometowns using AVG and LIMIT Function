@@ -1,0 +1,21 @@
+/*
+Find the hometowns with the top 3 average net times. Output the hometowns and their average net time. 
+In case there are ties in net time, return all unique hometowns.
+*/
+
+select * from marathon_male;
+
+-- AVG NET TIME
+SELECT AVG(net_time)
+FROM marathon_male;
+
+-- AVG NET TIME + GROUP BY
+SELECT 
+    DISTINCT(hometown),
+    AVG(net_time) as Average
+FROM marathon_male
+GROUP BY hometown
+ORDER BY Average
+LIMIT 4;
+
+-- because there's ties in net time, so use limit 4
