@@ -1,0 +1,30 @@
+/*
+It's the end-of-year review, and you've been tasked with identifying the city with the most profitable month in 2021.
+The output should provide the city, the most profitable month, and the profit.
+Tables: lyft_orders, lyft_payment_details
+*/
+
+select * from lyft_orders;
+select * from lyft_payment_details;
+
+-- INNER JOIN
+SELECT *
+FROM lyft_orders lo
+INNER JOIN lyft_payment_details lpd
+ON
+lo.order_id = lpd.order_id;
+
+-- EXTRACT MONTH and MAX FARE
+SELECT 
+    CITY,
+    EXTRACT (MONTH from "order_date") as MOST_PROFITABLE_MONTH,
+    SUM(order_fare) as PROFIT
+FROM lyft_orders lo
+INNER JOIN lyft_payment_details lpd
+ON
+lo.order_id = lpd.order_id
+GROUP BY CITY, MOST_PROFITABLE_MONTH
+ORDER BY PROFIT DESC
+LIMIT 2;
+
+## USE LIMIT 2, because there are 2 city with most profitable month
