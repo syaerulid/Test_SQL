@@ -1,0 +1,23 @@
+/*
+Find whether hosts or guests give higher review scores based on their average review scores. 
+Output the higher of the average review score rounded to the 2nd decimal spot (e.g., 5.11). */
+
+select * from airbnb_reviews;
+
+-- AVERAGE REVIEW FROM GUESTS
+SELECT  
+    AVG(review_score)
+FROM airbnb_reviews
+WHERE from_type  = 'guest';
+
+-- AVERAGE REVIEW FROM HOST
+SELECT  
+    AVG(review_score)
+FROM airbnb_reviews
+WHERE from_type  = 'host';
+
+-- AVERAGE REVIEW ROUND
+SELECT  
+    ROUND(AVG(review_score),2) as AVG
+FROM airbnb_reviews
+WHERE from_type  = 'guest';
