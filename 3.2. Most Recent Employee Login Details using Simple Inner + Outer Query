@@ -1,0 +1,21 @@
+/*
+Amazon's information technology department is looking for information on employees' most recent logins.
+The output should include all information related to each employee's most recent login.
+*/
+
+select * from worker_logins;
+
+-- RECENT LOGIN as Inner Query
+SELECT
+    MAX(login_timestamp)
+FROM worker_logins
+GROUP BY worker_id;
+
+-- Outer Query + Inner Query as Result
+SELECT *
+FROM worker_logins
+WHERE login_timestamp IN
+(SELECT
+    MAX(login_timestamp)
+FROM worker_logins
+GROUP BY worker_id);
