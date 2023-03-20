@@ -1,0 +1,24 @@
+/*
+How many searches were there in the second quarter of 2021?
+*/
+
+select * from fb_searches;
+-- EXTRACT AS QUARTER
+SELECT 
+    EXTRACT (QUARTER from "date") as QUARTER
+FROM fb_searches;
+
+-- WHERE CLAUSE
+SELECT 
+    COUNT(search_query),
+    EXTRACT (QUARTER from "date") as QUARTER
+FROM fb_searches
+GROUP BY QUARTER;
+
+-- END
+SELECT 
+    COUNT(search_query),
+    EXTRACT (QUARTER from "date") as QUARTER
+FROM fb_searches
+WHERE EXTRACT(QUARTER from "date") = 2
+GROUP BY QUARTER;
