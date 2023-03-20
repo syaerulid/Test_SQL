@@ -1,0 +1,63 @@
+/*
+Find "favorite" customers based on the order count and the total cost of orders.
+A customer is considered as a favorite if he or she has placed more than 3 orders and with the total cost of orders more than $100.
+
+Output the customer's first name, city, number of orders, and total cost of orders.
+*/
+
+select * from customers;
+select * from orders;
+
+-- 1. JOIN
+SELECT *
+FROM customers c
+JOIN
+orders o
+ON 
+c.id = o.cust_id;
+
+-- 2. SUM TOTAL ORDER COST
+SELECT SUM(total_order_cost)
+FROM customers c
+JOIN
+orders o
+ON 
+c.id = o.cust_id
+GROUP BY first_name;
+
+-- 3. COUNT ORDER DETAILS
+SELECT COUNT(order_details)
+FROM customers c
+JOIN
+orders o
+ON 
+c.id = o.cust_id
+GROUP BY first_name;
+
+-- 4. RESULT with HAVING CLAUSE
+SELECT 
+    first_name,
+    COUNT(order_details) AS JUMLAH,
+    SUM(total_order_cost) AS TOTAL
+FROM customers c
+JOIN
+orders o
+ON 
+c.id = o.cust_id
+GROUP BY first_name
+HAVING COUNT(order_details) > 3
+AND SUM(total_order_cost) > 100;
+
+-- 5. More Simple Result
+SELECT 
+    first_name,
+    COUNT(order_details) AS JUMLAH,
+    SUM(total_order_cost) AS TOTAL
+FROM customers c
+JOIN
+orders o
+ON 
+c.id = o.cust_id
+GROUP BY first_name
+HAVING JUMLAH > 3
+AND TOTAL > 100;
