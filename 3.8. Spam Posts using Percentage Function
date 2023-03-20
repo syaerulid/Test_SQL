@@ -51,3 +51,5 @@ FROM facebook_posts fp
 INNER JOIN facebook_post_views fpv
 ON
 fp.post_id = fpv.post_id;
+
+## need to edit further so result become percentage
