@@ -1,0 +1,55 @@
+/*
+For each city, find the number of rides in August 2021 that were not paid for using promotional codes. 
+Output the city or cities where this number was the highest. 
+*/
+
+select * from lyft_orders;
+select * from lyft_payments;
+
+-- 1. INNER JOIN
+SELECT *
+FROM lyft_orders lo
+INNER JOIN lyft_payments lp
+ON
+lo.order_id = lp.order_id;
+
+-- 2. NOT USING PROMO
+SELECT *
+FROM lyft_orders lo
+INNER JOIN lyft_payments lp
+ON
+lo.order_id = lp.order_id
+WHERE promo_code = 'FALSE';
+
+-- 3. MAX FARE not USING PROMO
+SELECT MAX(order_fare)
+FROM lyft_orders lo
+INNER JOIN lyft_payments lp
+ON
+lo.order_id = lp.order_id
+WHERE promo_code = 'FALSE';
+
+-- 4. MAX FARE non using PROMO when MONTH AUGUST 21
+SELECT 
+    MAX(order_fare),
+    EXTRACT(MONTH from "order_date") as MONTH
+FROM lyft_orders lo
+INNER JOIN lyft_payments lp
+ON
+lo.order_id = lp.order_id
+WHERE promo_code = 'FALSE'
+AND EXTRACT(MONTH from "order_date") = 8
+GROUP BY MONTH;
+
+-- 5. Query the City based on Condition Above
+SELECT 
+    city,
+    MAX(order_fare) AS MAX_FARE,
+    EXTRACT(MONTH from "order_date") as MONTH
+FROM lyft_orders lo
+INNER JOIN lyft_payments lp
+ON
+lo.order_id = lp.order_id
+WHERE promo_code = 'FALSE'
+AND EXTRACT(MONTH from "order_date") = 8
+GROUP BY MONTH, city;
