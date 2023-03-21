@@ -1,0 +1,37 @@
+/*
+Display a list of users who took the same training lessons more than once on the same day. 
+Output their usernames, training IDs, dates and the number of times they took the same lesson.
+*/
+
+select * from users_training;
+select * from training_details;
+
+-- JOIN
+SELECT *
+FROM users_training ut
+JOIN training_details td
+ON 
+ut.u_id = td.u_id;
+-- COUNT DATETIME
+SELECT  
+    training_date,
+    count(*)
+FROM users_training ut
+JOIN training_details td
+ON 
+ut.u_id = td.u_id
+GROUP BY training_date
+HAVING COUNT(*) > 1;
+
+-- USER WHO DUPLICATE TRAINING
+SELECT  
+    u_name,
+    training_id,
+    training_date,
+    count(*) AS Number_Duplicated
+FROM users_training ut
+JOIN training_details td
+ON 
+ut.u_id = td.u_id
+GROUP BY u_name, training_id, training_date
+HAVING COUNT(*) > 1;
