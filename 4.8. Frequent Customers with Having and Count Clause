@@ -1,0 +1,20 @@
+/*
+Find customers who appear in the orders table more than three times.
+*/
+
+select * from orders;
+
+-- COUNT Customer ID Frequency
+SELECT
+    cust_id,
+    count(*)
+FROM orders
+GROUP BY cust_id;
+
+-- COUNT Customer ID > 3
+SELECT
+    cust_id,
+    count(*)
+FROM orders
+GROUP BY cust_id
+HAVING COUNT(*) > 3;
