@@ -1,0 +1,30 @@
+/*
+Find the highest target achieved by the employee or employees who works under the manager id 13.
+Output the first name of the employee and target achieved. 
+The solution should show the highest target achieved under manager_id=13 and which employee(s) achieved it.
+*/
+
+select * from salesforce_employees;
+
+-- MAX TARGET
+SELECT 
+    MAX(target)
+FROM salesforce_employees;
+
+-- WHERE CLAUSE MANAGER ID 13
+SELECT 
+    MAX(target)
+FROM salesforce_employees
+WHERE manager_id = 13;
+
+-- EMPLOYEE WHO REACHED TARGET UNDER MANAGER ID 13
+SELECT 
+    first_name,
+    target
+FROM salesforce_employees
+WHERE target = 
+(SELECT 
+    MAX(target)
+FROM salesforce_employees
+WHERE manager_id = 13)
+LIMIT 3;
