@@ -1,0 +1,24 @@
+/*
+Find all emails with duplicates.
+*/
+
+select * from employee;
+
+-- first_name, email
+SELECT first_name, email
+FROM employee;
+
+-- COUNT EMAIL
+SELECT
+    email,
+    COUNT(*)
+FROM employee
+GROUP BY email;
+
+-- COUNT EMAIL DUPLICATED
+SELECT
+    email,
+    COUNT(*)
+FROM employee
+GROUP BY email
+HAVING COUNT(*) > 1;
