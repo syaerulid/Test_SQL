@@ -1,0 +1,37 @@
+/*
+What is the last name of the employee or employees who are responsible for the most orders?
+*/
+
+select * from shopify_orders;
+select * from shopify_employees;
+
+-- JOIN
+SELECT *
+FROM shopify_orders so
+INNER JOIN shopify_employees se
+ON
+so.resp_employee_id = se.id;
+
+-- MOST ORDERS
+SELECT 
+    MAX(order_amount)
+FROM shopify_orders so
+INNER JOIN shopify_employees se
+ON
+so.resp_employee_id = se.id;
+
+-- EMPLOYEE THAT RESPONSIBLE WITH MOST ORDERS
+SELECT
+    first_name,
+    last_name,
+    order_amount
+FROM shopify_orders so
+INNER JOIN shopify_employees se
+ON
+so.resp_employee_id = se.id
+WHERE order_amount =(SELECT 
+    MAX(order_amount)
+FROM shopify_orders so
+INNER JOIN shopify_employees se
+ON
+so.resp_employee_id = se.id);
