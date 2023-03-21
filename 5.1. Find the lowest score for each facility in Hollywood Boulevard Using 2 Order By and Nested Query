@@ -1,0 +1,38 @@
+/*
+Find the lowest score per each facility in Hollywood Boulevard.
+Output the result along with the corresponding facility name.
+Order the result based on the lowest score in descending order and the facility name in the ascending order.
+*/
+
+select * from los_angeles_restaurant_health_inspections;
+
+-- MIN SCORE
+SELECT
+    MIN(score)
+FROM los_angeles_restaurant_health_inspections
+GROUP BY facility_name;
+-- MAX SCORE
+SELECT
+    MAX(score)
+FROM los_angeles_restaurant_health_inspections
+GROUP BY facility_name;
+
+-- MIN MAX 
+SELECT
+    MIN(score) AS Minimum_Rate
+FROM los_angeles_restaurant_health_inspections
+GROUP BY facility_name
+ORDER BY Minimum_Rate DESC;
+
+-- ASCENDING
+SELECT 
+    facility_name,
+    score
+FROM los_angeles_restaurant_health_inspections
+WHERE score IN
+(SELECT
+    MIN(score) AS Minimum_Rate
+FROM los_angeles_restaurant_health_inspections
+GROUP BY facility_name
+ORDER BY Minimum_Rate DESC)
+ORDER BY facility_name;
