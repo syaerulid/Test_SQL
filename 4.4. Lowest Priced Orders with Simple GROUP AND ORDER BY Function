@@ -1,0 +1,26 @@
+/*
+Find the lowest order cost of each customer.
+Output the customer id along with the first name and the lowest order price.
+*/
+
+select * from customers;
+select * from orders;
+
+-- INNER JOIN
+SELECT *
+FROM customers c
+INNER JOIN orders o
+ON
+c.id = o.cust_id;
+
+-- MIN ORDERS
+SELECT 
+    first_name,
+    cust_id,
+    MIN(total_order_cost)
+FROM customers c
+INNER JOIN orders o
+ON
+c.id = o.cust_id
+GROUP BY first_name, cust_id
+ORDER BY MIN(total_order_cost);
