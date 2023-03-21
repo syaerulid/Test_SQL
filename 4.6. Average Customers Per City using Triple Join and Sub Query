@@ -1,0 +1,55 @@
+/*
+Write a query that will return all cities with more customers than the average number of  customers of all cities that have at least one customer. 
+For each such city, return the country name,  the city name, and the number of customers
+*/
+
+select * from linkedin_customers;
+select * from linkedin_city;
+select * from linkedin_country;
+
+-- Triple JOIN
+SELECT *
+FROM linkedin_customers lcu
+JOIN linkedin_city lci
+ON
+lcu.city_id = lci.id
+JOIN linkedin_country lco
+ON 
+lci.country_id = lco.id;
+
+-- AVG Customer as INNER Query
+SELECT 
+    AVG(lci.id)
+FROM linkedin_customers lcu
+JOIN linkedin_city lci
+ON
+lcu.city_id = lci.id
+JOIN linkedin_country lco
+ON 
+lci.country_id = lco.id
+HAVING COUNT(lci.id) >= 1;
+-- RESULT (OUTER + INNER Query)
+SELECT 
+    lci.city_name,
+    lco.country_name,
+    COUNT(lci.id) as Number_of_Customer
+FROM linkedin_customers lcu
+JOIN linkedin_city lci
+ON
+lcu.city_id = lci.id
+JOIN linkedin_country lco
+ON 
+lci.country_id = lco.id
+WHERE lci.id > (SELECT 
+    AVG(lci.id)
+FROM linkedin_customers lcu
+JOIN linkedin_city lci
+ON
+lcu.city_id = lci.id
+JOIN linkedin_country lco
+ON 
+lci.country_id = lco.id
+HAVING COUNT(lci.id) >= 1)
+GROUP BY lci.city_name, lco.country_name;
+
+
