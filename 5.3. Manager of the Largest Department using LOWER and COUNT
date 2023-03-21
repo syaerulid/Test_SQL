@@ -1,0 +1,23 @@
+/*
+Given a list of a company's employees, find the name of the manager from the largest department. 
+Manager is each employee that contains word "manager" under their position.  Output their first and last name.
+*/
+
+select * from az_employees;
+
+-- COUNT DEPARTMENT TO DEFINE THE LARGEST
+SELECT
+    department_name,
+    COUNT(*)
+FROM az_employees
+GROUP BY department_name;
+
+-- The Largest Department is HR and Sales
+
+-- WHERE CLAUSE DEPARTMENT with Lower
+SELECT *
+FROM az_employees
+WHERE department_name IN ('Human Resources','Sales')
+AND LOWER(position) LIKE '%manager%';
+
+-- With Lower we modified the position so, all the manager no matter its Manager / manager will be counted
