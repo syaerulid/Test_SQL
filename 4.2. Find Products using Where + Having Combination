@@ -1,0 +1,41 @@
+/*
+Find product ids whose average sales price is at least $3 and that are sold at least 2 times? Output product id and their brand.
+*/
+
+select * from facebook_products;
+select * from facebook_sales;
+
+-- JOIN
+SELECT *
+FROM facebook_products fp
+INNER JOIN facebook_sales fs
+ON
+fp.product_id = fs.product_id;
+
+-- AVERAGE SALES
+SELECT 
+    AVG(cost_in_dollars)
+FROM facebook_products fp
+INNER JOIN facebook_sales fs
+ON
+fp.product_id = fs.product_id;
+
+-- SOLD ATLEAST 2 TIMES
+SELECT *
+FROM facebook_products fp
+INNER JOIN facebook_sales fs
+ON
+fp.product_id = fs.product_id
+WHERE units_sold >= 2;
+
+-- COMBINE WHERE + HAVING
+SELECT
+    fp.product_id,
+    brand_name
+FROM facebook_products fp
+INNER JOIN facebook_sales fs
+ON
+fp.product_id = fs.product_id
+WHERE units_sold >= 2
+GROUP BY fp.product_id, brand_name
+HAVING AVG(cost_in_dollars) >= 3;
