@@ -1,0 +1,22 @@
+/*
+Find a neighborhood where you can sleep on a real bed in a villa with internet while paying the lowest price possible.
+*/
+
+select * from airbnb_search_details;
+
+-- CHEAPEST
+SELECT 
+    MIN(price)
+FROM airbnb_search_details;
+
+-- WHERE + CHEAPEST
+SELECT 
+    neighbourhood,
+    MIN(price) as Lowest_Price
+FROM airbnb_search_details
+WHERE property_type = 'Villa'
+AND bed_type = 'Real Bed'
+AND amenities LIKE '%Internet%'
+GROUP by neighbourhood
+ORDER by Lowest_Price;
+
