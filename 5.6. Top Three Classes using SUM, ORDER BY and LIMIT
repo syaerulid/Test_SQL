@@ -1,0 +1,26 @@
+/*
+The marketing department wants to launch a new promotion for the most successful product classes. 
+What are the top 3 product classes by number of sales?
+*/
+
+select * from facebook_products;
+select * from facebook_sales;
+-- JOIN
+SELECT *
+FROM facebook_products fp
+JOIN facebook_sales fs
+ON
+fp.product_id = fs.product_id;
+
+-- SUM UNIT SOLDS
+SELECT
+    product_class,
+    SUM(units_sold) as NOS
+FROM facebook_products fp
+JOIN facebook_sales fs
+ON
+fp.product_id = fs.product_id
+GROUP BY product_class
+ORDER BY NOS DESC
+LIMIT 3;
+
