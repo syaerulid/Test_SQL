@@ -1,0 +1,16 @@
+/*
+Write a query that returns the company (customer id column) with highest number of users that use desktop only.
+*/
+
+select * from fact_events;
+
+-- COUNT BY Client ID
+SELECT
+    customer_id,
+    client_id,
+    COUNT(*) AS Jumlah
+FROM fact_events
+WHERE client_id = 'desktop'
+GROUP BY client_id, customer_id
+ORDER BY Jumlah DESC
+LIMIT 1;
